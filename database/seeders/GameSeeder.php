@@ -23,7 +23,7 @@ class GameSeeder extends Seeder
                 'description' => 'Hollow Knight: Silksong is the epic sequel to Hollow Knight, the epic action-adventure of bugs and heroes. As the lethal hunter Hornet, journey to all-new lands, discover new powers, battle vast hordes of bugs and beasts and uncover ancient secrets tied to your nature and your past.',
                 'release_date' => '2025-09-04',
                 'platform' => 'PC',
-                'cover_img' => 'games/silksong.png',
+                'cover_img' => 'silksong.png',
                 'created_at' => $currentTimestamp,
                 'updated_at' => $currentTimestamp
             ]
