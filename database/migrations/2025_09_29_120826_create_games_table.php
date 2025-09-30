@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255);
+            $table->string('title');
             $table->text('description')->nullable();
             $table->date('release_date');
 
             // string value for platform but only allows the listed options. defaults to PC.
             $table->enum('platform', ['PC', 'PS4', 'PS5', 'Xbox', 'Switch'])->default('PC');
-            
+
+            // name and location of the image as a string, actual image in public folder on server.
+            $table->string('cover_img');
+
             $table->timestamps();
         });
     }
