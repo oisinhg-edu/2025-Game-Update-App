@@ -12,7 +12,11 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        // fetch all games from the DB
+        $games = Game::all();
+
+        // pass games data to game.index view
+        return view('games.index', compact('games'));
     }
 
     /**
