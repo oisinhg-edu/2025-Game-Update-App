@@ -12,9 +12,9 @@
                     <h3 class="font-semibold text-lg mb-4">List of Games:</h3>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach($games as $game)
+                        @foreach ($games as $game)
                             <a href="{{ route('games.show', $game) }}">
-                                <x-game-card :title="$game->title" :cover_img="$game->cover_img" />
+                                <x-game-card :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date" :description="$game->description" />
                             </a>
                         @endforeach
                     </div>

@@ -40,7 +40,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        return view('games.show')->with('game', $game);
     }
 
     /**
