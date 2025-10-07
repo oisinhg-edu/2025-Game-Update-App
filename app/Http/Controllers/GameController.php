@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class GameController extends Controller
 {
@@ -24,7 +27,7 @@ class GameController extends Controller
      */
     public function create()
     {
-        //
+        return view('games.create');
     }
 
     /**
@@ -32,7 +35,38 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate Input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:600',
+            'release_date' => 'required|date',
+            'platform' => [
+                'required',
+                Rule::in(Game::getPlatformOptions()), // dynamic enum validation
+            ],
+            'cover_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // check if image is uploaded and handle it
+        if ($request->hasFile('cover_img')) {
+
+            $imageName = Str::uuid().'.'.$request->cover_img->extension();
+            $request->file('cover_img')->move(public_path('images/games'), $imageName);
+        }
+
+        // create game record in db
+        Game::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'release_date' => $request->release_date,
+            'platform' => $request->platform,
+            'cover_img' => $imageName, //img url stored
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        // return to index and display success message
+        return to_route('games.index')->with('success', 'Game created successfully!');
     }
 
     /**

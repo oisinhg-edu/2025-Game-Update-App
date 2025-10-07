@@ -25,7 +25,7 @@ class GameSeeder extends Seeder
                 'title' => 'Hollow Knight: Silksong',
                 'description' => 'Hollow Knight: Silksong is the epic sequel to Hollow Knight, the epic action-adventure of bugs and heroes. As the lethal hunter Hornet, journey to all-new lands, discover new powers, battle vast hordes of bugs and beasts and uncover ancient secrets tied to your nature and your past.',
                 'release_date' => '2025-09-04',
-                'platform' => 'PC',
+                'platform' => 'Switch',
                 'cover_img' => 'silksong.png',
                 'created_at' => $currentTimestamp,
                 'updated_at' => $currentTimestamp
@@ -43,7 +43,7 @@ class GameSeeder extends Seeder
                 'title' => 'Silent Hill f',
                 'description' => 'Hinako\'s hometown is engulfed in fog, driving her to fight grotesque monsters and solve eerie puzzles. Uncover the disturbing beauty hidden in terror.',
                 'release_date' => '2025-09-25',
-                'platform' => 'PC',
+                'platform' => 'PS',
                 'cover_img' => 'silenthillf.jpg',
                 'created_at' => $currentTimestamp,
                 'updated_at' => $currentTimestamp
