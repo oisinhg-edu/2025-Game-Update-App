@@ -1,4 +1,5 @@
-@props(['action', 'method'])
+{{-- data passed to form --}}
+@props(['action', 'method', 'game' => null])
 
 <!-- this form allows data entry for a new game -->
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
@@ -42,6 +43,14 @@
     <div class="mb-4">
         <label for="cover_img" class="block text-sm font-medium text-gray-700">Cover Image</label>
 
+        {{-- Displays the cover image if it exists. For Updating. --}}
+        @isset($game->cover_img)
+            <div class="mb-4">
+                <img src="{{ asset('images/games/' . $game->cover_img) }}" alt="Game cover image"
+                    class="w-24 h-32 object-cover">
+            </div>
+        @endisset
+
         {{-- input field --}}
         <input type='file' name='cover_img' id='cover_img' {{ isset($game) ? '' : 'required' }}
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
@@ -51,13 +60,6 @@
             <p class='text-sm text-red-600'>{{ $message }}</p>
         @enderror
     </div>
-
-    {{-- Displays the cover image if it exists. For Updating. --}}
-    @isset($game->image)
-        <div class="mb-4">
-            <img src="{{ asset($game->image) }}" alt="Game cover image" class="w-24 h-32 object-cover">
-        </div>
-    @endisset
 
     {{-- Platform --}}
     <div class="mb-4">
@@ -100,4 +102,9 @@
     <x-primary-button>
         {{ isset($game) ? 'Update Game' : 'Add Game' }}
     </x-primary-button>
+
+    {{-- cancel component to go to previous page --}}
+    <x-cancel-button href="{{ url()->previous() }}">
+        Cancel
+    </x-cancel-button>
 </form>

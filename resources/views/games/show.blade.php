@@ -5,17 +5,17 @@
         </h2>
     </x-slot>
 
+    {{-- show success message --}}
+    <x-alert-success>
+        {{ session('success') }}
+    </x-alert-success>
+
     <div class="py-12">
         <div class="max-w-7x1 mx-auto sm:px-6 lg:px-8 flex justify-center">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 w-3/4">
                 <h3>Game Details</h3>
-                <x-game-details
-                    :title="$game->title"
-                    :cover_img="$game->cover_img"
-                    :release_date="$game->release_date"
-                    :description="$game->description"
-                    :platform="$game->platform"
-                />
+                <x-game-details :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date" :description="$game->description"
+                    :platform="$game->platform" />
             </div>
         </div>
     </div>
