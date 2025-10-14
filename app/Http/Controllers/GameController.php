@@ -113,7 +113,6 @@ class GameController extends Controller
 
             $imageName = Str::uuid() . '.' . $request->cover_img->extension();
             $request->file('cover_img')->move(public_path('images/games'), $imageName);
-
         } else { // if image not uploaded, use old image
             $imageName = $game->cover_img;
         }
@@ -136,6 +135,16 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        //
+
+        // delete old image from public folder if file found
+        $oldPath = public_path('images/games/' . $game->cover_img);
+        if (file_exists($oldPath)) {
+            unlink($oldPath);
+        }
+
+        $game->delete();
+
+        // go to game index and display success message
+        return to_route('games.index')->with('success', 'Game deleted successfully!');
     }
 }
