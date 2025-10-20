@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('All Games') }}
         </h2>
-    </x-slot>
+    </x-slot> 
 
     <x-alert-success>
         {{ session('success') }}
