@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('release_date');
 
             // string value for platform but only allows the listed options. defaults to PC.
-            $table->enum('platform', ['PC', 'PS', 'Xbox', 'Switch'])->default('PC');
+            $table->enum('platform', ['PC', 'PS', 'Xbox', 'Nintendo'])->default('PC');
 
             // name and location of the image as a string, actual image in public folder on server.
             $table->string('cover_img');
@@ -29,7 +29,7 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     */
+    */
     public function down(): void
     {
         Schema::dropIfExists('games');

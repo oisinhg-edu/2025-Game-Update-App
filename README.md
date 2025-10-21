@@ -5,6 +5,8 @@ Game title text truncates to ... when page is smaller.
 
 When editing a game, you now aren't required to upload a new image.
 
+Lots more games added to seeder.
+
 ## Week 3
 Old images in public folder are now deleted when a game is deleted or when the image is updated from edit page.
 

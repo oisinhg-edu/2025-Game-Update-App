@@ -6,21 +6,25 @@
     interactive elements stop the event propagation so they work normally.
 --}}
 
-{{-- if href present, apply onclick scripts 
+{{-- if href present, apply onclick scripts
 only if click was not on link, button or form --}}
 
 <div
     @if ($href) data-href="{{ $href }}"
         onclick="if(!event.target.closest('a,button,form')) { window.location = this.dataset.href; }"
-        class="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
-    @else class="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" @endif>
+        class="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer flex flex-col justify-between"
+    @else class="border  rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 flex flex-col justify-between" @endif>
 
-    <img class="w-full mb-3" src="{{ asset('images/games/' . $cover_img) }}" alt="{{ $title }}">
+    <div class="w-full overflow-hidden aspect-[3/4] mb-3">
+        <img class="object-cover w-full h-full" src="{{ asset('images/games/' . $cover_img) }}"
+            alt="{{ $title }}">
+    </div>
+
 
     <div class="px-4">
-        <div class="flex justify-between items-center mb-2">
+        <div class="flex justify-between items-center mb-2 gap-2">
             <h4 class="font-bold text-lg truncate">{{ $title }}</h4>
-            <p>{{ \Carbon\Carbon::parse($release_date)->format('M j, Y') }}</p>
+            <p class="whitespace-nowrap">{{ \Carbon\Carbon::parse($release_date)->format('M j, Y') }}</p>
         </div>
 
         <!-- edit and delete buttons -->
