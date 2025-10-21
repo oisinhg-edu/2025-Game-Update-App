@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl leading-tight">
+        <h2 class="font-semibold text-xl text-inherit leading-tight">
             {{ __('All Games') }}
         </h2>
     </x-slot>
@@ -17,12 +17,8 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($games as $game)
-                        <div class="border p-4 rounded-lg shadow-md">
-                            <a href="{{ route('games.show', $game) }}">
-                                <x-game-card :game="$game" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date"
-                                    :description="$game->description" />
-                            </a>
-                        </div>
+                            <x-game-card :game="$game" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date"
+                                :description="$game->description" :href="route('games.show', $game)" />
                         @endforeach
                     </div>
                 </div>
