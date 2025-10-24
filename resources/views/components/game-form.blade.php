@@ -29,9 +29,8 @@
         <label for="description" class="block text-sm">Description</label>
 
         {{-- input field --}}
-        <input type='text' name='description' id='description'
-            value="{{ old('description', $game->description ?? '') }}" required
-            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500" />
+        <textarea name="description" id="description" required
+            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500 resize-y p-2">{{ old('description', $game->description ?? '')}}</textarea>
 
         {{-- error message display --}}
         @error('description')
@@ -53,7 +52,7 @@
 
         {{-- input field --}}
         <input type='file' name='cover_img' id='cover_img' {{ isset($game) ? '' : 'required' }}
-            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-500" />
+            class="mt-1 block border-gray-300 dark:border-gray-200 rounded-sm shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-500" />
 
         {{-- error message display --}}
         @error('cover_img')
@@ -66,7 +65,8 @@
         <label for="platform" class="block text-sm">Platform</label>
 
         {{-- Dropdown box for platform selection --}}
-        <select name="platform" id="platform" required class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500">
+        <select name="platform" id="platform" required
+            class="mt-1 block border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500">
 
             {{-- getting platform values using function in game model --}}
             @foreach (\App\Models\Game::getPlatformOptions() as $platform)
@@ -90,7 +90,7 @@
         {{-- input field --}}
         <input type='date' name='release_date' id='release_date'
             value="{{ old('release_date', $game->release_date ?? '') }}" required
-            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500" />
+            class="mt-1 block border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500" />
 
         {{-- error message display --}}
         @error('release_date')
