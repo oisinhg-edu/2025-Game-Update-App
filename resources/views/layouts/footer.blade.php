@@ -53,7 +53,7 @@
         </div>
 
         <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
-            © {{ date('Y') }} My Laravel App. All rights reserved.
+            © {{ date('Y') }} My Game DB App. All rights reserved.
         </div>
     </div>
 </footer>

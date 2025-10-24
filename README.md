@@ -31,4 +31,9 @@ More dark mode style adjustment.
 Welcome page customised with some basic info.
 New function created in GameController and linked in web.php to manage the welcome page. Also fetches most recent 3 games from db to populate "recently added games" list on welcome page.
 
-Added search bar.
+Added search bar. This is part of the navbar.
+Searches by creating a sql statement with where query. Returns matching table rows.
+
+Added footer.
+
+Added API call in my games.show page/controller. gets a random quote from a free api.
