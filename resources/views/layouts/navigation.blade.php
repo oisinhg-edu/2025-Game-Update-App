@@ -30,7 +30,7 @@
             </div>
 
             <!-- Searchbar -->
-            <!-- https://flowbite.com/docs/forms/search-input/ -->
+            <!-- reoutes to games.idex with the contents of search field -->
             <form action="{{ route('games.index') }}" method="GET" class="w-full max-w-sm flex items-center">
                 <div class="relative flex-grow">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

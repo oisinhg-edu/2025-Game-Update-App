@@ -17,6 +17,8 @@
                 <x-game-details :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date" :description="$game->description"
                     :platform="$game->platform" />
 
+
+                <!-- Quote from api -->
                 <div class="flex justify-end">
                     <div class="bg-white dark:bg-gray-700 overflow-hidden shadow-sm sm:rounded-lg p-6 w-1/4 ms-6">
                         <h3 class="text-xl font-bold mb-10 ">Inspirational Quote</h3>
