@@ -67,10 +67,7 @@
             </div>
         @endauth
 
-        <footer class="border-gray-200 dark:border-gray-500 fixed bottom-0 border-t text-center text-gray-500 dark:text-gray-400 py-6 text-sm w-full bg-white dark:bg-gray-800">
-            © {{ date('Y') }} Game DB project built with Laravel & Tailwind.
-        </footer>
-
+        @include('layouts.footer')
     </main>
 </body>
 </html>
