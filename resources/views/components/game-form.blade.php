@@ -2,7 +2,7 @@
 @props(['action', 'method', 'game' => null])
 
 <!-- this form allows data entry for a new game -->
-<form action="{{ $action }}" method="POST" enctype="multipart/form-data">
+<form action="{{ $action }}" method="POST" enctype="multipart/form-data" class="text-inherit">
     @csrf
 
     <!-- Tells laravel to treat form as put or patch even though browser sends as post -->
@@ -12,11 +12,11 @@
 
     {{-- Title --}}
     <div class="mb-4">
-        <label for="title" class="block text-sm text-gray-700">Title</label>
+        <label for="title" class="block text-sm">Title</label>
 
         {{-- input field --}}
         <input type='text' name='title' id='title' value="{{ old('title', $game->title ?? '') }}" required
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500" />
 
         {{-- error message display --}}
         @error('title')
@@ -26,12 +26,12 @@
 
     {{-- Description --}}
     <div class="mb-4">
-        <label for="description" class="block text-sm text-gray-700">Description</label>
+        <label for="description" class="block text-sm">Description</label>
 
         {{-- input field --}}
         <input type='text' name='description' id='description'
             value="{{ old('description', $game->description ?? '') }}" required
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500" />
 
         {{-- error message display --}}
         @error('description')
@@ -41,7 +41,7 @@
 
     {{-- Image --}}
     <div class="mb-4">
-        <label for="cover_img" class="block text-sm font-medium text-gray-700">Cover Image</label>
+        <label for="cover_img" class="block text-sm font-medium">Cover Image</label>
 
         {{-- Displays the cover image if it exists. For Updating. --}}
         @isset($game->cover_img)
@@ -53,7 +53,7 @@
 
         {{-- input field --}}
         <input type='file' name='cover_img' id='cover_img' {{ isset($game) ? '' : 'required' }}
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-500" />
 
         {{-- error message display --}}
         @error('cover_img')
@@ -63,10 +63,10 @@
 
     {{-- Platform --}}
     <div class="mb-4">
-        <label for="platform" class="block text-sm text-gray-700">Platform</label>
+        <label for="platform" class="block text-sm">Platform</label>
 
         {{-- Dropdown box for platform selection --}}
-        <select name="platform" id="platform" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="platform" id="platform" required class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500">
 
             {{-- getting platform values using function in game model --}}
             @foreach (\App\Models\Game::getPlatformOptions() as $platform)
@@ -85,12 +85,12 @@
 
     {{-- Release date --}}
     <div class="mb-4">
-        <label for="release_date" class="block text-sm text-gray-700">Release Date</label>
+        <label for="release_date" class="block text-sm">Release Date</label>
 
         {{-- input field --}}
         <input type='date' name='release_date' id='release_date'
             value="{{ old('release_date', $game->release_date ?? '') }}" required
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500" />
 
         {{-- error message display --}}
         @error('release_date')
