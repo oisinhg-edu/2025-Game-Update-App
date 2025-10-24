@@ -1,4 +1,5 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50 w-full">
+<nav x-data="{ open: false }"
+    class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50 w-full">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -27,7 +28,29 @@
 
                 </div>
             </div>
-            
+
+            <!-- Searchbar -->
+            <!-- https://flowbite.com/docs/forms/search-input/ -->
+            <form action="{{ route('games.index') }}" method="GET" class="w-full max-w-sm flex items-center">
+                <div class="relative flex-grow">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search games..."
+                        class="block w-full p-2 ps-9 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+
+                    <button type="submit"
+                        class="absolute end-1.5 bottom-1.5 px-2 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                        Search
+                    </button>
+                </div>
+            </form>
+
+
             <div class="flex sm:items-center sm:ms-6">
 
                 <!-- Dark/Light Mode Toggle Button -->

@@ -6,7 +6,7 @@ use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class GameController extends Controller
 {
@@ -20,7 +20,7 @@ class GameController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   
+    {
         // implement search functionality
         $query = Game::query();
 
@@ -88,7 +88,16 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return view('games.show')->with('game', $game);
+        // Fetch a random quote
+        $response = Http::get('https://zenquotes.io/api/random');
+        $quoteData = $response->json();
+
+        $quote = [
+            'content' => $quoteData[0]['q'] ?? 'No quote available',
+            'author' => $quoteData[0]['a'] ?? 'Unknown',
+        ];
+        
+        return view('games.show', compact('game', 'quote'));
     }
 
     /**
