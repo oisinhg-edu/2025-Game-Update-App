@@ -10,13 +10,28 @@ use Illuminate\Support\Facades\Storage;
 
 class GameController extends Controller
 {
+    public function welcome()
+    {
+        $recentGames = Game::orderBy('created_at', 'desc')->take(3)->get(); // fetch 3 most recent games
+        return view('welcome', compact('recentGames'));
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // fetch all games from the DB
-        $games = Game::all();
+    public function index(Request $request)
+    {   
+        // implement search functionality
+        $query = Game::query();
+
+        // if search input exists, filter games by title
+        if ($search = $request->input('search')) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        // create the games data from the query ordered by creation date
+        // this will get all games if no search input
+        $games = $query->orderBy('created_at', 'desc')->get();
 
         // pass games data to game.index view
         return view('games.index', compact('games'));

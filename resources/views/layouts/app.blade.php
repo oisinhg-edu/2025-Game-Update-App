@@ -28,17 +28,18 @@
 
         <!-- Page Heading -->
         @isset($header)
-        <header class="bg-white dark:bg-gray-800 shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-gray-100">
-                {{ $header }}
-            </div>
-        </header>
+            <header class="bg-white dark:bg-gray-800 shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-gray-100 flex items-center justify-between">
+                    {{ $header }}
+                </div>
+            </header>
         @endisset
 
         <!-- Page Content -->
-        <main class="max-w-7xl mx-auto">
+        <main class="max-w-7xl mx-auto text-gray-800 dark:text-gray-100">
             {{ $slot }}
         </main>
+
     </div>
 </body>
 

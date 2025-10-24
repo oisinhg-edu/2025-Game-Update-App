@@ -24,37 +24,53 @@
 <body class="bg-[#FDFDFC] dark:bg-gray-900 text-[#1b1b18] flex min-h-screen flex-col">
     @include('layouts.navigation')
 
-    <main class="flex ">
-        @if (Route::has('login'))
-            <nav class="flex items-center justify-end gap-4">
-                
-                <a href="{{ url('/games') }}"
-                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                    {{ __('View All Games') }}
+    <main class="flex-col justify-center text-gray-800 dark:text-gray-100">
+
+        <section class="text-center py-16">
+            <h1 class="text-4xl font-bold mb-4 flex gap-5 justify-center items-center">Welcome to The Game DB <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" /></h1>
+            <p class="mb-6">
+                Explore your favorite games! @guest Log in to @endguest Add and Edit!
+            </p>
+            <a href="{{ route('games.index') }}" >
+                <x-primary-button>
+                    View all games
+                </x-primary-button>
+            </a>
+        </section>
+
+        <section class="py-12 dark:text-gray-100">
+            <h2 class="text-2xl font-bold text-center mb-8">Recently Added Games</h2>
+            <div class="max-w-[60%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
+                @foreach ($recentGames as $game)
+                    <x-game-card :game="$game" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date"
+                                :description="$game->description" :href="route('games.show', $game)" />
+                @endforeach
+            </div>
+            <div class="text-center mt-8">
+                <a href="{{ route('games.index') }}">
+                <x-primary-button>
+                    See all games →
+                </x-primary-button>
+            </a>
+            </div>
+        </section>
+
+        @auth
+            <div class="text-center py-10">
+                <hr class="w-[50%] mx-auto mb-8">
+                <p class="text-lg mb-6">Want to add a new game?</p>
+                <a href="{{ route('games.create') }}">
+                        <x-primary-button>
+                            Create a game
+                        </x-primary-button>
                 </a>
+            </div>
+        @endauth
+        
+        <footer class="border-gray-200 dark:border-gray-500 border-t text-center text-gray-500 dark:text-gray-400 py-6 text-sm w-full bg-white dark:bg-gray-800">
+            © {{ date('Y') }} Game DB project built with Laravel & Tailwind.
+        </footer>
 
-                <!-- if guest i.e not logged in then show log in/ register buttons -->
-                @guest                               
-                    <a href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
-                        {{ __('Log in') }}
-                    </a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                            {{ __('Register') }}
-                        </a>
-                    @endif
-                @endguest
-
-                <x-theme-toggle />
-            </nav>
-        @endif
     </main>
-
-    @if (Route::has('login'))
-        <div class="h-14.5 hidden lg:block"></div>
-    @endif
 </body>
 </html>
