@@ -20,7 +20,7 @@
         </style>
     @endif
 </head>
-    
+
 <body class="bg-[#FDFDFC] dark:bg-gray-900 text-[#1b1b18] flex min-h-screen flex-col">
     @include('layouts.navigation')
 
@@ -66,8 +66,8 @@
                 </a>
             </div>
         @endauth
-        
-        <footer class="border-gray-200 dark:border-gray-500 border-t text-center text-gray-500 dark:text-gray-400 py-6 text-sm w-full bg-white dark:bg-gray-800">
+
+        <footer class="border-gray-200 dark:border-gray-500 fixed bottom-0 border-t text-center text-gray-500 dark:text-gray-400 py-6 text-sm w-full bg-white dark:bg-gray-800">
             © {{ date('Y') }} Game DB project built with Laravel & Tailwind.
         </footer>
 
