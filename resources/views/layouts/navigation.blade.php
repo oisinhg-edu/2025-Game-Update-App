@@ -19,13 +19,14 @@
                         {{ __('View All Games') }}
                     </x-nav-link>
 
-                    <!-- nav link to create page, only shows if authorized -->
                     @auth
-                        <x-nav-link :href="route('games.create')" :active="request()->routeIs('games.create')">
-                            {{ __('Create New Game') }}
-                        </x-nav-link>
+                        <!-- nav link to create page, only shows if admin -->
+                        @if (auth()->user()->role === 'admin')
+                            <x-nav-link :href="route('games.create')" :active="request()->routeIs('games.create')">
+                                {{ __('Create New Game') }}
+                            </x-nav-link>
+                        @endif
                     @endauth
-
                 </div>
             </div>
 
