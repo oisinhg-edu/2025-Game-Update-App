@@ -34,7 +34,7 @@ only if click was not on link, button or form --}}
 
         <!-- edit and delete buttons -->
         <!-- only show if logged in -->
-        @auth
+        @can('manage-game')
             <div class="my-4 flex space-x-2 justify-end">
                 <!-- Edit Button, routes to game.edit using $game object -->
                 <a href="{{ route('games.edit', $game) }}" onclick="event.stopPropagation();"
@@ -55,7 +55,7 @@ only if click was not on link, button or form --}}
                     </button>
                 </form>
             </div>
-        @endauth
+        @endcan
     </div>
 
 </div>
