@@ -1,4 +1,4 @@
-<footer class="bg-gray-900 dark:bg-gray-300 text-gray-300 dark:text-gray-900 py-8 mt-12">
+<footer class="bg-gray-900 dark:bg-gray-300 text-gray-300 dark:text-gray-900 py-8 mt-12 bottom:0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -14,12 +14,16 @@
             <div>
                 <h3 class="text-lg font-semibold mb-3">Links</h3>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('welcome') }}" class="hover:text-indigo-400 dark:hover:text-indigo-600">Home</a></li>
+                    <li><a href="{{ route('welcome') }}" class="hover:text-indigo-400 dark:hover:text-indigo-600">Home</a>
+                    </li>
                     <li><a href="{{ route('games.index') }}"
                             class="hover:text-indigo-400 dark:hover:text-indigo-600">Games</a></li>
-                    @auth
-                        <li><a href="{{ route('games.create') }}" class="hover:text-indigo-400 dark:hover:text-indigo-600">Add
+                    @can('manage-game')
+                        <li><a href="{{ route('games.create') }}"
+                                class="hover:text-indigo-400 dark:hover:text-indigo-600">Add
                                 New Game</a></li>
+                    @endcan
+                    @auth
                         <li><a href="{{ route('profile.edit') }}"
                                 class="hover:text-indigo-400 dark:hover:text-indigo-600">Profile</a></li>
                     @endauth

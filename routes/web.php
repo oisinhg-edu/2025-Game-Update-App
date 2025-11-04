@@ -14,9 +14,9 @@ Route::middleware('auth')->group(function () {
 
 // routes for game CRUD
 
-// grouping routes that require authentication
-Route::middleware(['auth'])->group(function () {
-    Route::get('/games/create', [GameController::class, 'create'])->name('games.create'); 
+// grouping routes that require admin authentication
+Route::middleware(['auth', 'can:manage-game'])->group(function () {
+    Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
     Route::post('/games', [GameController::class, 'store'])->name('games.store');
 
     Route::get('/games/{game}/edit', [GameController::class, 'edit'])->name('games.edit');
@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // public routes
-Route::get('/games', [GameController::class, 'index'])->name('games.index'); 
+Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{game}', [GameController::class, 'show'])->name('games.show');
 
 require __DIR__ . '/auth.php';
