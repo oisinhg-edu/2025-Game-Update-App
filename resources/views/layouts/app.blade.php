@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Favicon -->
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <!-- Favicons, auto switch based on browser theme -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon_dark.ico') }}" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon_light.ico') }}" media="(prefers-color-scheme: light)" />
+
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
