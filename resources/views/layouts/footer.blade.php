@@ -14,7 +14,7 @@
             <div>
                 <h3 class="text-lg font-semibold mb-3">Links</h3>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('welcome') }}" class="hover:text-indigo-400 dark:hover:text-indigo-600">Home</a>
+                    <li><a href="{{ route('home') }}" class="hover:text-indigo-400 dark:hover:text-indigo-600">Home</a>
                     </li>
                     <li><a href="{{ route('games.index') }}"
                             class="hover:text-indigo-400 dark:hover:text-indigo-600">Games</a></li>
