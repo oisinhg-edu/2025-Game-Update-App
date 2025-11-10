@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Http;
 
 class GameController extends Controller
 {
-    public function welcome()
-    {
-        $recentGames = Game::orderBy('created_at', 'desc')->take(3)->get(); // fetch 3 most recent games
-        return view('welcome', compact('recentGames'));
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -96,7 +90,7 @@ class GameController extends Controller
             'content' => $quoteData[0]['q'] ?? 'No quote available',
             'author' => $quoteData[0]['a'] ?? 'Unknown',
         ];
-        
+
         return view('games.show', compact('game', 'quote'));
     }
 

@@ -16,7 +16,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="font-semibold text-lg mb-4">List of Games:</h3>
 
-                    <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="grid sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
                         @foreach ($games as $game)
                             <x-game-card :game="$game" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date"
                                 :description="$game->description" :href="route('games.show', $game)" />
