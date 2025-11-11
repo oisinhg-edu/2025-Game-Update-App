@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header" >
+    <x-slot name="header">
         <h2 class="font-semibold text-xl text-inherit leading-tight">
             {{ __('All Games') }}
         </h2>
@@ -17,10 +17,13 @@
                     <h3 class="font-semibold text-lg mb-4">List of Games:</h3>
 
                     <div class="grid sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-                        @foreach ($games as $game)
+                        @forelse ($games as $game)
                             <x-game-card :game="$game" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date"
                                 :description="$game->description" :href="route('games.show', $game)" />
-                        @endforeach
+                        @empty
+                            <p class="col-span-full text-center text-gray-500">No games found.</p>
+                        @endforelse
+
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ only if click was not on link, button or form --}}
         <!-- White vignette overlay -->
         <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_50%,rgba(0,0,0,0.4)_100%)]
-           dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0)_30%,rgba(255,255,255,0.4)_100%)]">
+           dark:bg-[radial-grdient(circle_at_center,rgba(255,255,255,0)a_30%,rgba(255,255,255,0.4)_100%)]">
         </div>
     </div>
 
@@ -33,7 +33,7 @@ only if click was not on link, button or form --}}
         </div>
 
         <!-- edit and delete buttons -->
-        <!-- only show if logged in -->
+        <!-- only show if admin -->
         @can('manage-game')
             <div class="my-4 flex space-x-2 justify-end">
                 <!-- Edit Button, routes to game.edit using $game object -->

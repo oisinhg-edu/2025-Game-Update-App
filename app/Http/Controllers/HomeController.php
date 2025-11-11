@@ -9,7 +9,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $recentGames = Game::latest()->take(3)->get(); // fetch 3 most recent games
+        // fetch 3 most recent games
+        $recentGames = Game::latest()
+            ->take(3)
+            ->get();
+
         return view('home', compact('recentGames'));
     }
 }
