@@ -1,3 +1,7 @@
+## ERD
+<img width="532" height="377" alt="erd" src="https://github.com/user-attachments/assets/437d6a16-cea3-48a5-871e-dcc0e040f526" />
+
+
 ## Week 1
 Added new role to user to differentiate admins. 
 New seeders created for user and admin accounts.
