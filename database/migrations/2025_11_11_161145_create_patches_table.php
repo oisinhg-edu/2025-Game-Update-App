@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('patches', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->string('version');
             $table->timestamps();
         });
     }
