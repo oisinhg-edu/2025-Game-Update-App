@@ -16,7 +16,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="font-semibold text-lg mb-4">List of Games:</h3>
 
-                    <div class="grid sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-6 gap-6">
                         @forelse ($games as $game)
                             <x-game-card :game="$game" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date"
                                 :description="$game->description" :href="route('games.show', $game)" />
@@ -25,8 +25,11 @@
                         @endforelse
 
                     </div>
+
                 </div>
+
             </div>
+            {{ $games->links() }}
         </div>
     </div>
 </x-app-layout>
