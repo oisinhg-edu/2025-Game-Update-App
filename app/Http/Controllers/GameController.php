@@ -25,8 +25,8 @@ class GameController extends Controller
 
         // create the games data from the query ordered by creation date
         // this will get all games if no search input
-        $games = $query->orderBy('created_at', 'desc')->paginate(15);
-
+        $games = $query->orderBy('created_at', 'desc')->paginate($request->input('ipp'));
+        $games->appends(['search' => $request->input('search')]);
         // pass games data to game.index view
         return view('games.index', compact('games'));
     }
