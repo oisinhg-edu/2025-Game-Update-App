@@ -13,3 +13,12 @@ Gates created in here.
 
 Middleware edited to use gate.
 Custom 403 unauthorized error page created. 
+
+## Week 2
+Added pagination.
+This uses laravel's built in pagination function. First retrieve all games from the db then use paginate() to tell laravel how many to display per page. 
+Defaults to 18 game cards per page.
+Selection box created to allow user to choose different number of cards per page.
+This value is passed to the gamecontroller in the request in a similar way to how search is handled.
+
+

@@ -12,6 +12,20 @@
 
     <div class="py-12">
         <div class="max-w-7x1 mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-center justify-end gap-3">
+                <label for="count">Games per page: </label>
+
+                <form method="GET" action="{{ route('games.index') }}">
+                    <select name="cards" onchange="this.form.submit()" class="border-gray-500 rounded-lg">
+                        <option value="18" {{ request('cards') == '18' ? 'selected' : '' }}>18</option>
+                        <option value="36" {{ request('cards') == '36' ? 'selected' : '' }}>36</option>
+                        <option value="54" {{ request('cards') == '54' ? 'selected' : '' }}>54</option>
+                    </select>
+                </form>
+            </div>
+
+
+
             <div class="bg-white dark:bg-gray-700 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="font-semibold text-lg mb-4">List of Games:</h3>

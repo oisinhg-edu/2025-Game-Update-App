@@ -23,10 +23,27 @@ class GameController extends Controller
             $query->where('title', 'like', "%{$search}%");
         }
 
+        // create a variable from the cards info in url
+        // default 18
+        $cards = $request->input('cards', 18);
+
         // create the games data from the query ordered by creation date
         // this will get all games if no search input
-        $games = $query->orderBy('created_at', 'desc')->paginate($request->input('ipp'));
-        $games->appends(['search' => $request->input('search')]);
+        // paginate function to tell laravel how many game cards per page
+        $games = $query->orderBy('created_at', 'desc')->paginate($cards);
+
+        // create array to be appended to the returned view
+        $append = [
+            'search' => $request->input('search')
+        ];
+
+        // if default value don't append to array
+        if ($cards != 18) {
+            $append['cards'] = $cards;
+        }
+
+        $games->appends([$append]);
+
         // pass games data to game.index view
         return view('games.index', compact('games'));
     }
