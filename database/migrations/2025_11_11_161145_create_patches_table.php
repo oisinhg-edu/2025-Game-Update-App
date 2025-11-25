@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('patches', function (Blueprint $table) {
             $table->id();
+
+            // if game deleted, patch deleted too
+            $table->foreignId('game_id')->constrained()->cascadeOnDelete();
+            // if user who wrote patch deleted, patch stays but user value is made null
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+
             $table->string('version');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
