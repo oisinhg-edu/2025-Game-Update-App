@@ -16,6 +16,12 @@
                 <label for="count">Games per page: </label>
 
                 <form method="GET" action="{{ route('games.index') }}">
+
+                    <!-- Preserve search term if present -->
+                    @if (request('search'))
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
+
                     <select name="cards" onchange="this.form.submit()" class="border-gray-500 rounded-lg">
                         <option value="18" {{ request('cards') == '18' ? 'selected' : '' }}>18</option>
                         <option value="36" {{ request('cards') == '36' ? 'selected' : '' }}>36</option>

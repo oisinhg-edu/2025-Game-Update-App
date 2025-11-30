@@ -20,5 +20,10 @@ This uses laravel's built in pagination function. First retrieve all games from 
 Defaults to 18 game cards per page.
 Selection box created to allow user to choose different number of cards per page.
 This value is passed to the gamecontroller in the request in a similar way to how search is handled.
+The search request is also passed if present along with the number of cards request. To preserve a search query.
 
+## Week 3
+Added Patches table. This is where information about updates to games is stored. Has a foreign key referencing User table, with null on delete. This is so that a patch stays even if the user who wrote it deletes their account. Also references Games table to link certain patch to a certain game. 
+One game can have many patches, one patch belongs to one game. One to Many relationship.
 
+Added Developers table.

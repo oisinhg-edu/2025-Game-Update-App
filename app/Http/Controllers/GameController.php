@@ -42,7 +42,7 @@ class GameController extends Controller
             $append['cards'] = $cards;
         }
 
-        $games->appends([$append]);
+        $games->appends($append);
 
         // pass games data to game.index view
         return view('games.index', compact('games'));
