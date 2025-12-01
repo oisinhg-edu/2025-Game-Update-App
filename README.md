@@ -27,3 +27,12 @@ Added Patches table. This is where information about updates to games is stored.
 One game can have many patches, one patch belongs to one game. One to Many relationship.
 
 Added Developers table.
+
+Factories created for Games and Patches. 
+These allow seeders to generate lots of fake table rows in a given format. I define what columns I want with what kind of fake data and seeder runs N times to make that many rows.
+Moved the games I already made in seeder to a separate JSON file to improve readability. 
+Now I import this json file and seed with that and the factory.
+
+Patches are collapsible on game show page. Using alpine.js.
+
+Loading animated svg added to images so before they load something still shown to user.

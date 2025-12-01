@@ -30,7 +30,7 @@ class GameController extends Controller
         // create the games data from the query ordered by creation date
         // this will get all games if no search input
         // paginate function to tell laravel how many game cards per page
-        $games = $query->orderBy('created_at', 'desc')->paginate($cards);
+        $games = $query->orderBy('created_at', 'desc')->paginate($cards)->onEachSide(1);
 
         // create array to be appended to the returned view
         $append = [
@@ -108,6 +108,9 @@ class GameController extends Controller
             'author' => $quoteData[0]['a'] ?? 'Unknown',
         ];
 
+        // load game with its associated patches
+        $game->load('patches.user');
+    
         return view('games.show', compact('game', 'quote'));
     }
 

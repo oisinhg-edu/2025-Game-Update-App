@@ -9,6 +9,13 @@ class Patch extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'game_id',
+        'user_id',
+        'version',
+        'content',
+    ];
+
     public function game() {
         return $this->belongsTo(Game::class);
     }

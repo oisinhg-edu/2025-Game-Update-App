@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patch;
+use App\Models\Game;
 use Illuminate\Http\Request;
 
 class PatchController extends Controller
@@ -26,9 +27,21 @@ class PatchController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Game $game)
     {
-        //
+        $request->validate([
+            'version' => 'required|string',
+            'content' => 'nullable|string|max:10000',
+        ]);
+
+        $game->patches()->create([
+            'game_id' => $game->id,
+            'user_id' => auth()->id(),
+            'version' => $request->input('version'),
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect()->route('games.show', $game)->with('success', 'Patch note added successfully.');
     }
 
     /**
