@@ -40,17 +40,18 @@ only if click was not on link, button or form --}}
         </div>
     </div>
 
-
+    {{-- lower section --}}
     <div class="px-4">
-        <div class="flex justify-between items-center mb-2 gap-2">
-            <h4 class="font-bold text-lg truncate">{{ $title }}</h4>
-            <p class="whitespace-nowrap">{{ \Carbon\Carbon::parse($release_date)->format('M j, Y') }}</p>
+        {{-- title and date --}}
+        <div class="flex flex-col">
+            <h4 class="font-bold text-lg break-words truncate">{{ $title }}</h4>
+            <p class="whitespace-nowrap truncate">{{ \Carbon\Carbon::parse($release_date)->format('M j, Y') }}</p>
         </div>
 
         <!-- edit and delete buttons -->
         <!-- only show if admin -->
         @can('manage-game')
-            <div class="my-4 flex space-x-2 justify-end">
+            <div class="my-4 flex flex-col items-end gap-1">
                 <!-- Edit Button, routes to game.edit using $game object -->
                 <a href="{{ route('games.edit', $game) }}" onclick="event.stopPropagation();"
                     class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-gray-800 dark:text-white uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
