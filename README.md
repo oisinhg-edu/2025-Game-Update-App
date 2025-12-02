@@ -1,6 +1,5 @@
 ## ERD
-<img width="532" height="377" alt="erd" src="https://github.com/user-attachments/assets/437d6a16-cea3-48a5-871e-dcc0e040f526" />
-
+<img width="1006" height="698" alt="Screenshot 2025-12-02 023305" src="https://github.com/user-attachments/assets/f8e48262-a50b-4918-9e70-4d3388254118" />
 
 ## Week 1
 Added new role to user to differentiate admins. 
