@@ -63,16 +63,37 @@ class PatchController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Patch $patch)
+    public function update(Request $request, Game $game, Patch $patch)
     {
-        //
+        // only allow creator of the patch or admin to update it
+        $user = auth()->user();
+        if (! ($user->can('manage-game') || $patch->user_id === $user->id)) {
+            abort(403);
+        }
+
+        $patch->update([
+            'version'  => $request->input('version'),
+            'content'  => $request->input('content'),
+            'user_id'  => auth()->id(),
+        ]);
+
+        return redirect()->route('games.show', $patch->game_id)->with('success', 'Patch Note updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Patch $patch)
+    public function destroy(Game $game, Patch $patch)
     {
-        //
+
+        // only allow creator of the patch or admin to delete it
+        $user = auth()->user();
+        if (! ($user->can('manage-game') || $patch->user_id === $user->id)) {
+            abort(403);
+        }
+
+        $patch->delete();
+
+        return redirect()->route('games.show', $game)->with('success', 'Patch Note deleted successfully');
     }
 }

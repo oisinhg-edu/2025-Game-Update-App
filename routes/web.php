@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// routes for game CRUD
+// routes for game/patch/developer CRUD
 
 // grouping routes that require admin authentication
 Route::middleware(['auth', 'can:manage-game'])->group(function () {
@@ -28,15 +28,25 @@ Route::middleware(['auth', 'can:manage-game'])->group(function () {
     Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.destroy');
 
     // patches
-    Route::post('games/{game}/patches', [PatchController::class, 'store'])->name('patches.store');
+    Route::resource('patches', PatchController::class)->except(['update', 'destroy']);
 });
 
-// public routes
+// public routes for games
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{game}', [GameController::class, 'show'])->name('games.show');
 
 
-// routes for patches
-Route::resource('patches', PatchController::class);
+// public routes for patches
+// update and destroy permissions handled in controller to allow users to edit/delete their own patches
+Route::put(
+    '/games/{game}/patches/{patch}',
+    [PatchController::class, 'update']
+)->name('patches.update')->middleware('auth');
+
+Route::delete(
+    '/games/{game}/patches/{patch}',
+    [PatchController::class, 'destroy']
+)->name('patches.destroy')->middleware('auth');
+
 
 require __DIR__ . '/auth.php';

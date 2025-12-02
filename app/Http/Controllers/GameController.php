@@ -127,6 +127,7 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
+
         // Validate Input
         $request->validate([
             'title' => 'required|string|max:255',

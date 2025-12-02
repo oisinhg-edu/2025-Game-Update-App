@@ -6,21 +6,19 @@
     interactive elements stop the event propagation so they work normally.
 --}}
 
-{{-- if href present, apply onclick scripts
-only if click was not on link, button or form --}}
 
-<div
-    @if ($href) data-href="{{ $href }}"
-        onclick="if(!event.target.closest('a,button,form')) { window.location = this.dataset.href; }"
-        class="border dark:border-gray-500 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer flex flex-col justify-between"
-    @else class="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 flex flex-col justify-between" @endif>
+<div data-href="{{ $href }}"
+    onclick="if(!event.target.closest('a,button,form')) { window.location = this.dataset.href; }"
+    class="border dark:border-gray-500 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer flex flex-col justify-between">
 
-    <div x-data="{ loaded: false }" class="relative w-full overflow-hidden aspect-[3/4] mb-3 group">
+    {{-- image --}}
+    <div x-data="{ loaded: false }" class="relative w-full overflow-hidden aspect-[3/4] mb-2 group">
 
         {{-- when image not loaded show spinning icon --}}
         <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="50"
-                height="50" style="shape-rendering: auto; display: block;" xmlns:xlink="http://www.w3.org/1999/xlink">
+                height="50" style="shape-rendering: auto; display: block;"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
                 <circle stroke-dasharray="164.93361431346415 56.97787143782138" r="35" stroke-width="10"
                     stroke="#7b5be1" fill="none" cy="50" cx="50">
                     <animateTransform keyTimes="0;1" values="0 50 50;360 50 50" dur="2s" repeatCount="indefinite"
@@ -41,7 +39,7 @@ only if click was not on link, button or form --}}
     </div>
 
     {{-- lower section --}}
-    <div class="px-4">
+    <div class="px-4 mb-2">
         {{-- title and date --}}
         <div class="flex flex-col">
             <h4 class="font-bold text-lg break-words truncate">{{ $title }}</h4>
