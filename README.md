@@ -1,6 +1,5 @@
 ## ERD
-<img width="532" height="377" alt="erd" src="https://github.com/user-attachments/assets/437d6a16-cea3-48a5-871e-dcc0e040f526" />
-
+<img width="1006" height="698" alt="Screenshot 2025-12-02 023305" src="https://github.com/user-attachments/assets/f8e48262-a50b-4918-9e70-4d3388254118" />
 
 ## Week 1
 Added new role to user to differentiate admins. 
@@ -26,8 +25,6 @@ The search request is also passed if present along with the number of cards requ
 Added Patches table. This is where information about updates to games is stored. Has a foreign key referencing User table, with null on delete. This is so that a patch stays even if the user who wrote it deletes their account. Also references Games table to link certain patch to a certain game. 
 One game can have many patches, one patch belongs to one game. One to Many relationship.
 
-Added Developers table.
-
 Factories created for Games and Patches. 
 These allow seeders to generate lots of fake table rows in a given format. I define what columns I want with what kind of fake data and seeder runs N times to make that many rows.
 Moved the games I already made in seeder to a separate JSON file to improve readability. 
@@ -43,3 +40,5 @@ The edit is on the same page where patches are shown, the games show page.
 Didn't make separate edit page and form.
 Uses alpine.js to show or hide edit fields for each patch.
 
+Developers and developer_game tables added. Many to many relationship between devs and games.
+Devloper factory made. Inside dev seeder, each dev is associated with 1-5 games using attach().

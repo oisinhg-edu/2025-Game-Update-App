@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Developer;
 use App\Models\Game;
 use App\Models\Patch;
 use App\Models\User;
@@ -41,6 +42,7 @@ class GameSeeder extends Seeder
         $games = Game::all();
 
         foreach($games as $game) {
+            // create between 1 and 10 patches for each game
             Patch::factory(rand(1,10))->create([
                 'game_id' => $game->id,
                 'user_id' => rand(0, 1) ? User::inRandomOrder()->first()->id : null,

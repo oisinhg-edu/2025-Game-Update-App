@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeveloperController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProfileController;
@@ -29,12 +30,14 @@ Route::middleware(['auth', 'can:manage-game'])->group(function () {
 
     // patches
     Route::resource('patches', PatchController::class)->except(['update', 'destroy']);
+
+    // developers
+    Route::resource('developers', DeveloperController::class);
 });
 
 // public routes for games
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{game}', [GameController::class, 'show'])->name('games.show');
-
 
 // public routes for patches
 // update and destroy permissions handled in controller to allow users to edit/delete their own patches
@@ -47,6 +50,5 @@ Route::delete(
     '/games/{game}/patches/{patch}',
     [PatchController::class, 'destroy']
 )->name('patches.destroy')->middleware('auth');
-
 
 require __DIR__ . '/auth.php';

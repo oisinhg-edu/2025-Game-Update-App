@@ -110,7 +110,7 @@ class GameController extends Controller
 
         // load game with its associated patches
         $game->load('patches.user');
-    
+
         return view('games.show', compact('game', 'quote'));
     }
 
@@ -177,8 +177,16 @@ class GameController extends Controller
 
         // delete old image from public folder if file found
         $oldPath = public_path('images/games/' . $game->cover_img);
+
         if (file_exists($oldPath)) {
-            unlink($oldPath);
+            // get folder name if any
+            $parts = explode('/', $game->cover_img);
+            $folder = count($parts) > 1 ? $parts[0] : null;
+
+            // only delete if not in 'seeded' or 'placeholder' folders
+            if (!in_array($folder, ['seeded', 'placeholder'])) {
+                unlink($oldPath);
+            }
         }
 
         $game->delete();

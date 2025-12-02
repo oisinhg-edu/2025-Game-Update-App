@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\File;
 
 class Game extends Model
 {
@@ -30,9 +31,15 @@ class Game extends Model
         return $cache = $values;
     }
 
-    // pluray because book has many patches
-    public function patches() 
+    // game can have many patches
+    public function patches()
     {
         return $this->hasMany(Patch::class);
+    }
+
+    // game can have many developers
+    public function developers()
+    {
+        return $this->belongsToMany(Developer::class);
     }
 }

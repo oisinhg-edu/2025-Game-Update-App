@@ -41,7 +41,7 @@ class PatchController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        return redirect()->route('games.show', $game)->with('success', 'Patch note added successfully.');
+        return to_route('games.show', $game)->with('success', 'Patch note added successfully.');
     }
 
     /**
@@ -77,7 +77,7 @@ class PatchController extends Controller
             'user_id'  => auth()->id(),
         ]);
 
-        return redirect()->route('games.show', $patch->game_id)->with('success', 'Patch Note updated successfully');
+        return to_route('games.show', $patch->game_id)->with('success', 'Patch Note updated successfully');
     }
 
     /**
@@ -94,6 +94,6 @@ class PatchController extends Controller
 
         $patch->delete();
 
-        return redirect()->route('games.show', $game)->with('success', 'Patch Note deleted successfully');
+        return to_route('games.show', $game)->with('success', 'Patch Note deleted successfully');
     }
 }

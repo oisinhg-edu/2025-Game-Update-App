@@ -12,7 +12,7 @@
     class="border dark:border-gray-500 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer flex flex-col justify-between">
 
     {{-- image --}}
-    <div x-data="{ loaded: false }" class="relative w-full overflow-hidden aspect-[3/4] mb-2 group">
+    <div x-data="{ loaded: false }" x-init="if ($refs.img.complete) loaded = true" class="relative w-full overflow-hidden aspect-[3/4] mb-2 group">
 
         {{-- when image not loaded show spinning icon --}}
         <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center">
@@ -28,9 +28,8 @@
             </svg>
         </div>
 
-        <img class="object-cover w-full h-full" x-on:load="loaded = true"
+        <img x-ref="img" @load="loaded = true" class="object-cover w-full h-full"
             src="{{ asset('images/games/' . $cover_img) }}" alt="{{ $title }}" loading="lazy">
-
         <!-- White vignette overlay -->
         <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_50%,rgba(0,0,0,0.4)_100%)]
