@@ -22,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('manage-game', fn(User $user) => $user->role === 'admin');
+        Gate::define('manage-developer', fn(User $user) => $user->role === 'admin');
         // Gate::define('edit-game', fn(User $user) => in_array($user->role, ['admin', 'editor']));
     }
 }

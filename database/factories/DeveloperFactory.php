@@ -20,7 +20,20 @@ class DeveloperFactory extends Factory
             'company_name' => $this->faker->unique()->company(),
             'founded'      => $this->faker->year(),                 // e.g. "1998"
             'country'      => $this->faker->country(),              // e.g. "Japan"
-            'logo_img'     => 'images/placeholder/placeholder1.png',  // or null if optional
+
+             // pick one image
+            'logo_img' => fake()->randomElement([
+                'placeholder/devLogo1.png',
+                'placeholder/devLogo2.png',
+                'placeholder/devLogo3.png',
+                'placeholder/devLogo4.png',
+                'placeholder/devLogo5.png',
+                'placeholder/devLogo6.png',
+                'placeholder/devLogo7.png',
+                'placeholder/devLogo8.png',
+                'placeholder/devLogo9.png',
+                'placeholder/devLogo10.png',
+            ]),
         ];
     }
 }

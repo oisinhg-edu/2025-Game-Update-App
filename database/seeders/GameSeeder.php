@@ -17,36 +17,48 @@ class GameSeeder extends Seeder
      */
     public function run(): void
     {
-        $currentTimestamp = Carbon::now()->addHour();
+        $currentTimestampPlus = Carbon::now()->addHour();
+        $currentTimestamp = Carbon::now();
 
         // load json game data
         $gamesJson = file_get_contents(database_path('data/games.json'));
         $realGames = json_decode($gamesJson, true);
 
         // add timestamps to each game
-        $realGames = array_map(function ($game) use ($currentTimestamp) {
-            return array_merge($game, [
-                'created_at' => $currentTimestamp,
-                'updated_at' => $currentTimestamp,
-            ]);
-        }, $realGames);
-
-        // add 'real' games from json
-        Game::insert($realGames);
-
-        // add factory games
-        Game::factory(500)->create();
-
-        // get all games that i just seeded
-        // use patch factory to generate between 1 and 10 patch notes for each game
-        $games = Game::all();
-
-        foreach($games as $game) {
-            // create between 1 and 10 patches for each game
-            Patch::factory(rand(1,10))->create([
-                'game_id' => $game->id,
-                'user_id' => rand(0, 1) ? User::inRandomOrder()->first()->id : null,
-            ]);
+        // passing $game as reference using '&' which modifies the actual element in $realGames
+        foreach ($realGames as &$game) {
+            $game['created_at'] = $currentTimestampPlus;
+            $game['updated_at'] = $currentTimestampPlus;
         }
+        unset($game);
+
+        $factoryGames = Game::factory()
+            ->count(500)
+            ->make()
+            ->toArray();
+        
+        // Add timestamps to factory games
+        foreach ($factoryGames as &$game) {
+            $game['created_at'] = $currentTimestamp;
+            $game['updated_at'] = $currentTimestamp;
+        }
+        unset($game);
+
+        Game::insert(array_merge($realGames, $factoryGames));
+
+        // use patch factory to generate between 1 and 10 patch notes for each game
+
+        // preload user ids for patches
+        $userIds = User::pluck('id')->all();
+
+        // generate patches for each game in chunks
+        Game::select('id')->chunk(100, function ($games) use ($userIds) {
+            foreach ($games as $game) {
+                Patch::factory(rand(1, 10))->create([
+                    'game_id' => $game->id,
+                    'user_id' => rand(0, 1) ? fake()->randomElement($userIds) : null,
+                ]);
+            }
+        });
     }
 }

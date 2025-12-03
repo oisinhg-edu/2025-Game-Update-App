@@ -32,7 +32,7 @@ Route::middleware(['auth', 'can:manage-game'])->group(function () {
     Route::resource('patches', PatchController::class)->except(['update', 'destroy']);
 
     // developers
-    Route::resource('developers', DeveloperController::class);
+    Route::resource('developers', DeveloperController::class)->except(['index', 'show']);
 });
 
 // public routes for games
@@ -41,14 +41,19 @@ Route::get('/games/{game}', [GameController::class, 'show'])->name('games.show')
 
 // public routes for patches
 // update and destroy permissions handled in controller to allow users to edit/delete their own patches
-Route::put(
-    '/games/{game}/patches/{patch}',
-    [PatchController::class, 'update']
-)->name('patches.update')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::put(
+        '/games/{game}/patches/{patch}',
+        [PatchController::class, 'update']
+    )->name('patches.update');
+    Route::delete(
+        '/games/{game}/patches/{patch}',
+        [PatchController::class, 'destroy']
+    )->name('patches.destroy');
+});
 
-Route::delete(
-    '/games/{game}/patches/{patch}',
-    [PatchController::class, 'destroy']
-)->name('patches.destroy')->middleware('auth');
+// public routes for devs
+Route::get('/developers', [DeveloperController::class, 'index'])->name('developers.index');
+Route::get('/developers/{developer}', [DeveloperController::class, 'show'])->name('developers.show');
 
 require __DIR__ . '/auth.php';

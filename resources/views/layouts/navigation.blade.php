@@ -12,16 +12,27 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
 
-                    <!-- nav link to index page-->
+                    <!-- nav link to games index page-->
                     <x-nav-link :href="route('games.index')" :active="request()->routeIs('games.index')">
-                        {{ __('View All Games') }}
+                        {{ __('Games') }}
                     </x-nav-link>
 
                     @can('manage-game')
                         <x-nav-link :href="route('games.create')" :active="request()->routeIs('games.create')">
-                            {{ __('Create New Game') }}
+                            {{ __('Add Game') }}
+                        </x-nav-link>
+                    @endcan
+
+                    <!-- nav link to developers index page-->
+                    <x-nav-link :href="route('developers.index')" :active="request()->routeIs('developers.index')">
+                        {{ __('Developers') }}
+                    </x-nav-link>
+
+                    @can('manage-developer')
+                        <x-nav-link :href="route('developers.create')" :active="request()->routeIs('developers.create')">
+                            {{ __('Add Dev') }}
                         </x-nav-link>
                     @endcan
                 </div>

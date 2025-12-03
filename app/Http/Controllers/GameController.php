@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Developer;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -53,7 +54,8 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('games.create');
+        $developers = Developer::orderBy('company_name')->get();
+        return view('games.create', compact('developers'));
     }
 
     /**
@@ -62,7 +64,7 @@ class GameController extends Controller
     public function store(Request $request)
     {
         // Validate Input
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:600',
             'release_date' => 'required|date',
@@ -70,28 +72,30 @@ class GameController extends Controller
                 'required',
                 Rule::in(Game::getPlatformOptions()), // dynamic enum validation
             ],
-            'cover_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cover_img' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            // devs pivot
+            'developers'   => ['nullable', 'array'],
+            'developers.*' => ['exists:developers,id'],
         ]);
 
         // check if image is uploaded and handle it
         if ($request->hasFile('cover_img')) {
             $imageName = Str::uuid() . '.' . $request->cover_img->extension();
             $request->file('cover_img')->move(public_path('images/games'), $imageName);
+            $validated['cover_img'] = $imageName;
         }
 
         // create game record in db
-        Game::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'release_date' => $request->release_date,
-            'platform' => $request->platform,
-            'cover_img' => $imageName, //img url stored
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $game = Game::create($validated);
+
+        // Attach devs
+        if (!empty($validated['developers'])) {
+            $game->developers()->sync($validated['developers']);
+        }
 
         // return to index and display success message
-        return to_route('games.index')->with('success', 'Game created successfully!');
+        return to_route('games.index')->with('success', 'Game added successfully!');
     }
 
     /**
@@ -99,19 +103,10 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        // Fetch a random quote
-        $response = Http::get('https://zenquotes.io/api/random');
-        $quoteData = $response->json();
-
-        $quote = [
-            'content' => $quoteData[0]['q'] ?? 'No quote available',
-            'author' => $quoteData[0]['a'] ?? 'Unknown',
-        ];
-
         // load game with its associated patches
-        $game->load('patches.user');
+        $game->load('developers', 'patches');
 
-        return view('games.show', compact('game', 'quote'));
+        return view('games.show', compact('game'));
     }
 
     /**
@@ -119,7 +114,8 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('games.edit', compact('game'));
+        $developers = Developer::orderBy('company_name')->get();
+        return view('games.edit', compact('developers', 'game'));
     }
 
     /**
@@ -129,7 +125,7 @@ class GameController extends Controller
     {
 
         // Validate Input
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:600',
             'release_date' => 'required|date',
@@ -138,6 +134,10 @@ class GameController extends Controller
                 Rule::in(Game::getPlatformOptions()), // dynamic enum validation
             ],
             'cover_img' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // not required because might be using old image
+
+            // devs pivot
+            'developers'   => ['nullable', 'array'],
+            'developers.*' => ['exists:developers,id'],
         ]);
 
         // check if image is uploaded
@@ -152,20 +152,18 @@ class GameController extends Controller
 
             $imageName = Str::uuid() . '.' . $request->cover_img->extension();
             $request->file('cover_img')->move(public_path('images/games'), $imageName);
+            $validated['cover_img'] = $imageName;
         } else { // if image not uploaded, use old image
             $imageName = $game->cover_img;
+            $validated['cover_img'] = $imageName;
         }
 
         // update game record in db
-        $game->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'platform' => $request->platform,
-            'cover_img' => $imageName, //img url stored
-            'updated_at' => now()
-        ]);
+        $game->update($validated);
 
-        // go to updated game and display success message
+        // Sync games
+        $game->developers()->sync($validated['developers'] ?? []);
+
         return to_route('games.show', $game)->with('success', 'Game updated successfully!');
     }
 

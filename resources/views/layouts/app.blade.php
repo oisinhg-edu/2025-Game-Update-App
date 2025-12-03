@@ -39,7 +39,7 @@
     @endisset
 
     <!-- Page Content -->
-    <main class="flex-grow flex-col max-w-[80%] mx-auto text-gray-800 dark:text-gray-100">
+    <main class="flex-grow flex-col w-full mx-auto text-gray-800 dark:text-gray-100">
         {{ $slot }}
     </main>
 

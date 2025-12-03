@@ -42,3 +42,9 @@ Uses alpine.js to show or hide edit fields for each patch.
 
 Developers and developer_game tables added. Many to many relationship between devs and games.
 Devloper factory made. Inside dev seeder, each dev is associated with 1-5 games using attach().
+
+Developer CRUD created. On dev show page, can see all games.
+Dev edit/create form lets you add games. uses alpine.js to get data.
+
+Devs added to game show view.
+Dev selection added to game create/edit form.

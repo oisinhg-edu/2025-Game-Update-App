@@ -9,7 +9,7 @@
 
 <div data-href="{{ $href }}"
     onclick="if(!event.target.closest('a,button,form')) { window.location = this.dataset.href; }"
-    class="border dark:border-gray-500 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer flex flex-col justify-between">
+    class="border dark:border-gray-500 bg-white hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer flex flex-col justify-between">
 
     {{-- image --}}
     <div x-data="{ loaded: false }" x-init="if ($refs.img.complete) loaded = true" class="relative w-full overflow-hidden aspect-[3/4] mb-2 group">
@@ -51,7 +51,7 @@
             <div class="my-4 flex flex-col items-end gap-1">
                 <!-- Edit Button, routes to game.edit using $game object -->
                 <a href="{{ route('games.edit', $game) }}" onclick="event.stopPropagation();"
-                    class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-gray-800 dark:text-white uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                    class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-gray-800 dark:text-white uppercase tracking-widest hover:bg-gray-400 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                     Edit
                 </a>
 

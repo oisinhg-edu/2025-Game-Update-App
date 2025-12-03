@@ -1,5 +1,5 @@
 {{-- data passed to form --}}
-@props(['action', 'method', 'game' => null])
+@props(['action', 'method', 'game' => null, 'allDevelopers'])
 
 <!-- this form allows data entry for a new game -->
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data" class="text-inherit">
@@ -30,7 +30,7 @@
 
         {{-- input field --}}
         <textarea name="description" id="description" required
-            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500 resize-y p-2">{{ old('description', $game->description ?? '')}}</textarea>
+            class="mt-1 block w-full border-gray-300 dark:border-gray-200 rounded-md shadow-sm bg-white dark:bg-gray-500 resize-y p-2">{{ old('description', $game->description ?? '') }}</textarea>
 
         {{-- error message display --}}
         @error('description')
@@ -96,6 +96,61 @@
         @error('release_date')
             <p class='text-sm text-red-600'>{{ $message }}</p>
         @enderror
+    </div>
+
+    {{-- Assign Developers --}}
+    <div x-data="{
+        allDevelopers: @js($allDevelopers),
+        selected: @js(isset($game) ? $game->developers->pluck('id') : []),
+        search: '',
+        get filteredDevelopers() {
+            if (!this.search) return this.allDevelopers;
+            return this.allDevelopers.filter(d =>
+                d.company_name.toLowerCase().includes(this.search.toLowerCase())
+            );
+        },
+        addDeveloper(id) {
+            if (!this.selected.includes(id)) {
+                this.selected.push(id);
+            }
+        },
+        removeDeveloper(id) {
+            this.selected = this.selected.filter(i => i !== id);
+        }
+    }" class="mb-4">
+
+        <label class="block text-sm mb-2">Developers</label>
+
+        {{-- Search --}}
+        <input type="text" x-model="search" placeholder="Search developers..."
+            class="w-full border-gray-300 dark:border-gray-600 rounded mb-2">
+
+        {{-- Dropdown --}}
+        <div
+            class="max-h-40 overflow-y-auto border border-gray-300 dark:border-gray-600 rounded mb-3 bg-white dark:bg-gray-800">
+            <template x-for="dev in filteredDevelopers" :key="dev.id">
+                <div @click="addDeveloper(dev.id)"
+                    class="px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer flex justify-between">
+                    <span x-text="dev.company_name"></span>
+                    <span x-show="selected.includes(dev.id)" class="text-green-600 text-sm">✔</span>
+                </div>
+            </template>
+        </div>
+
+        {{-- Selected pills --}}
+        <div class="flex flex-wrap gap-2">
+            <template x-for="id in selected" :key="id">
+                <div @click="removeDeveloper(id)"
+                    class="px-3 py-1 bg-blue-600 text-white rounded-full flex items-center cursor-pointer gap-2">
+                    <span x-text="allDevelopers.find(d => d.id === id)?.company_name"></span>
+                    <span class="font-bold">×</span>
+
+                    {{-- Hidden input to submit --}}
+                    <input type="hidden" name="developers[]" :value="id">
+                </div>
+            </template>
+        </div>
+
     </div>
 
     {{-- Checks if game already exists and displays appropriate message --}}

@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
 
-
     <div class="py-8 sm:px-6 lg:px-8">
         {{-- show success message --}}
         <x-alert-success>
@@ -14,23 +13,28 @@
 
         <div class="bg-white dark:bg-gray-700 overflow-hidden shadow-sm sm:rounded-lg p-6 mx-auto max-w-4xl w-full">
 
+            <x-game-details :id="$game->id" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date" :description="$game->description"
+                :platform="$game->platform" />
 
-            <x-game-details :id="$game->id" :title="$game->title" :cover_img="$game->cover_img" :release_date="$game->release_date" :description="$game->description" :platform="$game->platform" />
+            {{-- Devs --}}
+            <h2 class="text-lg font-semibold mt-6 mb-4">Developers</h2>
 
-            {{-- <!-- Quote from api -->
-                <div class="flex justify-end">
-                    <div class="bg-white dark:bg-gray-700 overflow-hidden shadow-sm sm:rounded-lg p-6 w-1/4 ms-6">
-                        <h3 class="text-xl font-bold mb-10 ">Inspirational Quote</h3>
-                        <blockquote class="italic text-gray-600 dark:text-gray-300">"{{ $quote['content'] }}"
-                        </blockquote>
-                        <p class="mt-4 text-right font-semibold text-gray-800 dark:text-gray-100">-
-                            {{ $quote['author'] }}
-                        </p>
-                    </div>
-                </div> --}}
+            <ul class="mt-2 flex flex-wrap gap-2">
+                @forelse ($game->developers as $dev)
+                    <li class="bg-indigo-100 dark:bg-indigo-600 dark:hover:bg-indigo-700 hover:bg-indigo-200 rounded-lg">
+                        <a href="{{ route('developers.show', $dev) }}" class="px-3 py-2 text-indigo-700 dark:text-indigo-100 hover:underline font-medium flex items-center gap-2">
+                            <img class="w-6 rounded-full" src="{{ asset('images/developers/' . $dev->logo_img) }}"
+                                alt="{{ $dev->company_name }}" loading="lazy">
+                            {{ $dev->company_name }}
+                        </a>
+                    </li>
+                @empty
+                    <p class="text-slate-500">No developers listed.</p>
+                @endforelse
+            </ul>
 
             {{-- Patches --}}
-            <h4 class="font-semibold text-md mt-8">Updates</h4>
+            <h4 class="font-semibold text-lg mt-8">Updates</h4>
 
             {{-- if no patches --}}
             @if ($game->patches->isEmpty())
@@ -42,8 +46,8 @@
                             <li x-data="{
                                 open: {{ $loopIndex === 0 ? 'true' : 'false' }},
                                 editing: false
-                            }" x-show="{{ $loopIndex < 4 ? 'true' : 'showOlder' }}" x-transition
-                                class="border rounded-lg dark:border-gray-500 overflow-hidden">
+                            }" x-show="{{ $loopIndex < 4 ? 'true' : 'showOlder' }}"
+                                x-transition class="border rounded-lg dark:border-gray-500 overflow-hidden">
 
                                 {{-- Header --}}
                                 <button @click="open = !open"
@@ -73,8 +77,9 @@
                                                     Edit
                                                 </button>
 
-                                                <form action="{{ route('patches.destroy', ['game' => $game, 'patch' => $patch]) }}" method="POST"
-                                                    onsubmit="return confirm('Delete this patch note?')">
+                                                <form
+                                                    action="{{ route('patches.destroy', ['game' => $game, 'patch' => $patch]) }}"
+                                                    method="POST" onsubmit="return confirm('Delete this patch note?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -88,7 +93,9 @@
 
                                     {{-- EDIT MODE --}}
                                     <div x-show="editing" x-transition>
-                                        <form action="{{ route('patches.update', ['game' => $game, 'patch' => $patch]) }}" method="POST">
+                                        <form
+                                            action="{{ route('patches.update', ['game' => $game, 'patch' => $patch]) }}"
+                                            method="POST">
                                             @csrf
                                             @method('PUT')
 

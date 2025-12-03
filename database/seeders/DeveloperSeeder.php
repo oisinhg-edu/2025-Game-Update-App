@@ -15,14 +15,32 @@ class DeveloperSeeder extends Seeder
     public function run(): void
     {
         $games = Game::all();
-        
-        // create devs with a factory and for each one assign games
-        Developer::factory(50)->create()->each(function ($developer) use ($games) {
 
-            // Each developer gets between 1 and 5 games
-            $randomGames = $games->random(rand(1, 5));
+        // Create 50 developers
+        $developers = Developer::factory(250)->create();
 
-            $developer->games()->attach($randomGames);
-        });
+        //
+        // Ensure every game has at least 1 developer
+        //
+        foreach ($games as $game) {
+            // Pick a random developer to assign as the required dev
+            $developer = $developers->random();
+            $developer->games()->attach($game->id);
+        }
+
+        //
+        // Give developers 1–5 total games (including the one above)
+        //
+        foreach ($developers as $developer) {
+
+            // The developer should have 1–5 games
+            $desiredCount = rand(1, 5);
+
+            // Pick additional random games
+            $randomGames = $games->random($desiredCount);
+
+            // Attach without removing previous assignments (no sync!)
+            $developer->games()->syncWithoutDetaching($randomGames);
+        }
     }
 }
