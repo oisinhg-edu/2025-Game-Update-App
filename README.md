@@ -34,7 +34,7 @@ Patches are collapsible on game show page. Using alpine.js.
 
 Loading animated svg added to images so before they load something still shown to user.
 
-# Week 4
+## Week 4
 Edit and delete functionality added to patches.
 The edit is on the same page where patches are shown, the games show page.
 Didn't make separate edit page and form.
